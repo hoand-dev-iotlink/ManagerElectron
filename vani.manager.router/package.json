@@ -8,11 +8,19 @@
   "scripts": {
     "dev": "nextron",
     "build": "nextron build",
+    "start": "nextron start",
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@iconify-icons/eva": "^1.1.0",
+    "@iconify/react": "^3.0.1",
+    "@mui/lab": "^5.0.0-alpha.47",
+    "@mui/material": "^5.0.0",
     "electron-serve": "^1.1.0",
-    "electron-store": "^8.0.0"
+    "electron-store": "^8.0.0",
+    "formik": "^2.2.9"
   },
   "devDependencies": {
     "electron": "^13.1.7",

@@ -11,7 +11,7 @@ function Home() {
       <div>
         <p>
           ⚡ Electron + Next.js ⚡ -
-          <Link href="/next">
+          <Link href="/login">
             <a>Go to next page</a>
           </Link>
         </p>
