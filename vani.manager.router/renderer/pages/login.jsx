@@ -7,11 +7,33 @@ import fetch from 'isomorphic-unfetch'
 import { Card, Stack, Container, Typography } from '@mui/material';
 import { display } from '@mui/system';
 import LoginFrom from '../components/Authen/loginFrom';
+import useSWR from 'swr';
+import { useRouter } from 'next/router';
 
-const login =()=> {
+
+const login = () => {
+    const router = useRouter();
+    const { data, revalidate } = useSWR('/api/authentication', async function (args) {
+        const res = await fetch(args);
+        // let a =await res.json();
+        // console.log(a);
+        // let aa= a.exp * 1000 < Date.now();
+        // if()
+        return await res.json();
+    });
+    if(data){
+        if(data.exp * 1000 > Date.now()){
+            router.push("/home");
+        }
+    }
+    // if (!data) return <h1>Loading...</h1>;
+    // let loggedIn = false;
+    // if (data.email) {
+    //     loggedIn = true;
+    // }
+
     return (
         <LayoutAccount>
-            
             <React.Fragment>
                 <div style={{ display: 'flex' }}>
                     <Card className={StyleU.boxCard}>
@@ -30,7 +52,7 @@ const login =()=> {
                             </Stack>
                             <LoginFrom></LoginFrom>
                         </div>
-                        
+
                     </Container>
                 </div>
             </React.Fragment>

@@ -1,0 +1,16 @@
+.lefttrevview{
+    height: calc(100vh - 20px);
+    box-shadow: 3px 0px 18px 0px #919eab29;
+}
+.css-1g86id8-MuiTreeItem-content{
+    width: auto !important;
+}
+.css-1g4t9us-MuiTreeItem-root .MuiTreeItem-content{
+    padding-right: 0px !important;
+}
+.css-1g86id8-MuiTreeItem-content{
+    padding: 0px !important;
+}
+.btncommon{
+    box-shadow: 3px 0px 18px 0px #919eab24;
+}

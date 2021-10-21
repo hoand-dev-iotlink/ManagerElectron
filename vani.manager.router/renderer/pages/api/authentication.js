@@ -1,11 +1,14 @@
 import { connectDatabase } from "../../service/middleware/connectDatabase";
+const jwt = require('jsonwebtoken');
+const jwtSecret = 'VANI@2021';
 
 const colletion = 'VaniUser';
+const expiresIn = 86400;
 export default async function handler(req, res) {
     // switch the methods
     switch (req.method) {
         case 'GET': {
-            return getPosts(req, res);
+            return checkToken(req, res);
         }
 
         case 'POST': {
@@ -22,6 +25,7 @@ export default async function handler(req, res) {
         }
     }
 }
+
 async function getPosts(req, res) {
     try {
         let data = req.body
@@ -29,18 +33,55 @@ async function getPosts(req, res) {
         let { db } = await connectDatabase();
         let posts = await db
             .collection(colletion)
-            .find({userName:data.user,password:data.password})
+            .find({ userName: data.user, password: data.password })
             //.sort({ published: -1 })
             .toArray();
-            if(posts){
-                return res.status(200).json({code:true,message:'authen succes',reslut:JSON.parse(JSON.stringify(posts))});
-            }else return res.status(401).json({code:false, message: 'Auth Failed',reslut:null});
+        if (posts && posts != null) {
+            let user = JSON.parse(JSON.stringify(posts));
+            if (user.length > 0) {
+                const token = jwt.sign(
+                    { userId: user[0].userId, email: user[0].email, phone: user[0].phone },
+                    jwtSecret,
+                    {
+                        expiresIn: expiresIn, //24 hours
+                    },
+                );
+                return res.status(200).json({ code: true, message: 'Đăng nhập thành công', reslut: user, token: token });
+            }
+        }
+        return res.status(200).json({ code: false, message: 'Nhập sai Số điện thoại hoặc tên đăng nhập hoặc mật khẩu', reslut: null });
     } catch (error) {
         return res.status(401).json({
-            code:false,
+            code: false,
             message: new Error(error).message,
             reslut: null
         });
+    }
+}
+
+async function checkToken(req, res) {
+    console.log(req);
+    if (!('token' in req.cookies)) {
+        res.status(401).json({ code: false, message: 'Chưa đăng nhập', reslut: null });
+        //res.status(401).json({ message: 'Unable to auth' });
+        return;
+    }
+    let decoded;
+    const token = req.cookies.token;
+    console.log(req.cookies.token);
+    if (token) {
+        try {
+            decoded = jwt.verify(token, jwtSecret);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    if (decoded) {
+        res.json(decoded);
+        return;
+    } else {
+        res.status(401).json({ code: false, message: 'Chưa đăng nhập', reslut: null });
     }
 }
 

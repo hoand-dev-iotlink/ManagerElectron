@@ -18,11 +18,18 @@
     "@iconify/react": "^3.0.1",
     "@mui/lab": "^5.0.0-alpha.47",
     "@mui/material": "^5.0.0",
+    "@mui/icons-material": "^5.0.0",
+    "@hookform/resolvers": "^2.6.1",
     "electron-serve": "^1.1.0",
     "electron-store": "^8.0.0",
     "isomorphic-unfetch": "^3.1.0",
     "mongodb": "^4.1.2",
-    "next-connect": "^0.10.2"
+    "next-connect": "^0.10.2",
+    "jsonwebtoken": "^8.5.1",
+    "js-cookie": "^2.2.1",
+    "react-hook-form": "^7.12.1",
+    "yup": "^0.32.9",
+    "swr": "^0.1.16"
   },
   "devDependencies": {
     "electron": "^13.1.7",
