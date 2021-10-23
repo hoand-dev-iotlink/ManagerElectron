@@ -10,9 +10,11 @@ import Filter1OutlinedIcon from '@mui/icons-material/Filter1Outlined';
 import Filter2OutlinedIcon from '@mui/icons-material/Filter2Outlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import CloudDownloadOutlinedIcon from '@mui/icons-material/CloudDownloadOutlined';
-
+import DistrictContent from '../components/Content/DistrictContent';
 import AddBusinessOutlinedIcon from '@mui/icons-material/AddBusinessOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import FormOneContent from '../components/Content/FormOneContent';
+import FormTwoContent from '../components/Content/FormTwoContent';
 
 const theme = createTheme({
   palette: {
@@ -57,12 +59,14 @@ export default function Home() {
         <ThemeProvider theme={theme}>
           <Grid container spacing={2}>
             <Grid item xs={3} md={3}>
+              {/* left tree view */}
               <Box className={styleU.lefttrevview}>
                 <LeftTreeView onclicktree={(val)=>{onclicktree(val)}}/>
               </Box>
 
             </Grid>
             <Grid item xs={9} md={9}>
+              {/* button content */}
               <Box>
                 <Stack direction="row" spacing={1}>
                   <Tooltip title="Thêm quận">
@@ -96,8 +100,11 @@ export default function Home() {
                 </Stack>
 
               </Box>
-              <Box>
-                <a>xs=6 md=4</a>
+              {/* content view  */}
+              <Box className={styleU.contentview}>  
+                {leftTree.type==1 && <DistrictContent/>}
+                {leftTree.type==2 && <FormOneContent/>}
+                {leftTree.type==3 && <FormTwoContent/>}
               </Box>
               
             </Grid>

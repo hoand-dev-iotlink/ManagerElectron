@@ -122,7 +122,7 @@ export default function LeftTreeView(props) {
       {datatree.filter(x=>x.type==1).map((item,index)=>
         <StyledTreeItem onClick={(e)=>hanldClick(e,item)} key={item.id} nodeId={item.id} labelText={item.name} labelIcon={AddBusinessIcon} color="#3c8039" bgColor="#e6f4ea" >  
           {datatree.filter(x=>x.parentId==item.id).map((child,index)=>
-            <StyledTreeItem key={child.id} nodeId={child.id} labelText={child.name} labelIcon={child.type==2 ? Filter1OutlinedIcon : Filter2OutlinedIcon} color="#3c8039" bgColor="#e6f4ea" />
+            <StyledTreeItem onClick={(e)=>hanldClick(e,child)} key={child.id} nodeId={child.id} labelText={child.name} labelIcon={child.type==2 ? Filter1OutlinedIcon : Filter2OutlinedIcon} color="#3c8039" bgColor="#e6f4ea" />
           )}
         </StyledTreeItem>
       )}
